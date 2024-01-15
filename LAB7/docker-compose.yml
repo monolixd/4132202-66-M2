@@ -1,0 +1,15 @@
+version: "2"
+services:
+  ftp:
+    image:  stilliard/pure-ftpd:hardened
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes:
+      - "./data:/home/bru"
+      - "./passwd:/etc/pure-ftpd/passwd"
+    environment:
+      FTP_USER_NAME : bru
+      FTP_USER_PASS : 1234
+      FTP_USER_HOME : /home/bru
+    command: /run.sh pure-ftpd  -l puredb:/etc/pure-ftpd/pureftpd.pdb -E -j -R -P localhost -s -A -j -Z -H -4 -E -R -X -x   -p 30000:30009 -c 5 -C 5
